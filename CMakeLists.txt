@@ -254,6 +254,11 @@ endif ()
 #
 ################################################################################
 
+if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.15")
+  # If this is not set, 'export (PACKAGE chai3d)' won't do anything.
+  set(CMAKE_EXPORT_PACKAGE_REGISTRY ON)
+endif ()
+
 # Export package for use from the build tree.
 export (TARGETS chai3d FILE ${PROJECT_BINARY_DIR}/CHAI3DTargets.cmake)
 export (PACKAGE chai3d)
