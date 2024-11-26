@@ -2,3 +2,6 @@
 [bB]in/lin-x86_64
 *.vscode
 *.vs
+*.vcxproj.user
+[lL]ib
+[oO]bj
