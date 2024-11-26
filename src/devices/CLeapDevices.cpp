@@ -246,7 +246,8 @@ unsigned int cLeapDevice::getNumDevices()
     if (s_libraryCounter < 1) return (C_ERROR);
 
     // get device count
-    unsigned int result = tdLeapGetNumDevices();
+    int result = tdLeapGetNumDevices();
+    result = (result < 0) ? 0 : result;
 
     // close libraries
     closeLibraries();
