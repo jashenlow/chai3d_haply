@@ -267,6 +267,9 @@ set (CHAI3D_SOURCE_DIR ${PROJECT_SOURCE_DIR})
 #
 ################################################################################
 
+# Workaround for std::byte conflict when compiling with >= C++17
+add_definitions (-D_HAS_STD_BYTE=0)
+
 # GLFW
 if (EXISTS ${PROJECT_SOURCE_DIR}/extras/GLFW)
     add_subdirectory (${PROJECT_SOURCE_DIR}/extras/GLFW)
