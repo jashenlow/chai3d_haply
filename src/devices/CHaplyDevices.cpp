@@ -476,15 +476,8 @@ namespace chai3d
             towards you (the operator). The y-axis points towards your right
             hand side and the z-axis points up towards the sky.
         */
-
-        bool result = C_SUCCESS;
-
-        //auto response = m_inverse->EndEffectorForce(m_force);
-        hAPI::Devices::Inverse3::EndEffectorStateResponse response;
-        {
-            std::lock_guard<std::mutex> lock(inverse3_request_lock);
-            response = m_inverse->GetEndEffectorPosition();
-        }
+        hAPI::Devices::Inverse3::EndEffectorStateResponse response =
+            m_inverse->EndEffectorForce(m_force);
         
         a_position.set(
             -response.position[1] - 0.150f,
@@ -493,7 +486,7 @@ namespace chai3d
 
         memcpy(m_linear_velocity.data(), response.velocity, sizeof(float) * hAPI::VECTOR_SIZE);
 
-        return (result);
+        return C_SUCCESS;
     }
 
     bool cHaplyDevices::getLinearVelocity(cVector3d &a_linearvelocity)
@@ -618,13 +611,6 @@ namespace chai3d
             m_force.force[0] = (float)a_force(1);  // y
             m_force.force[1] = -(float)a_force(0);  // x
             m_force.force[2] = (float)a_force(2);  // z
-
-            {
-                std::lock_guard<std::mutex> lock(inverse3_request_lock);
-                // Send update request to device.
-                m_inverse->SendEndEffectorForce(m_force.force);
-                m_inverse->ReceiveEndEffectorState();
-            }
         }
 
         // store new values.

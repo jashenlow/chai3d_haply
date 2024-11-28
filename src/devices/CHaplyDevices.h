@@ -136,7 +136,12 @@ namespace chai3d
         virtual bool calibrate(bool a_forceCalibration = false);
 
         //! This method returns the position of the device.
-        //! This MUST be called in order to get linear velocity values for the Inverse3.
+        /*!
+        This MUST be called in order to do the following:
+          - Get position values.
+          - Get linear velocity values.
+          - Set forces.
+        */
         virtual bool getPosition(cVector3d &a_position);
 
         //! This method returns the velocity of the device.
@@ -215,8 +220,6 @@ namespace chai3d
             std::atomic<bool> m_exit{false};
             cThread m_thread{};
         };
-
-        std::mutex inverse3_request_lock;
 
         size_t m_device_index{0};
 
