@@ -67,6 +67,7 @@
 #include "devices/CHaplyDevices.h"
 
 #include <cstdlib>
+#include <thread>
 
 //------------------------------------------------------------------------------
 namespace chai3d
