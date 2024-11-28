@@ -103,7 +103,10 @@ if (${CMAKE_SYSTEM_NAME} MATCHES Windows)
     # VisualStudio compiler
     if (MSVC)
         add_definitions (-D_CRT_SECURE_NO_DEPRECATE)
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /MP")
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /MP /std:c++17")
+        if (${CMAKE_SYSTEM_NAME} MATCHES Release)
+            set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GL /Ot")
+        endif ()
         if (${CMAKE_CL_64})
             add_definitions (-DWIN64)
         else ()
@@ -114,14 +117,14 @@ if (${CMAKE_SYSTEM_NAME} MATCHES Windows)
     elseif (MINGW)
         add_definitions (-DWIN32)
         add_definitions (-DHAVE_GCC_DESTRUCTOR)
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wno-deprecated -std=c++11")
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wno-deprecated -std=c++17")
         set (CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -march=native -Wno-deprecated")
     endif ()
 
 # Linux global build options
 elseif (${CMAKE_SYSTEM_NAME} MATCHES Linux)
     add_definitions (-DLINUX)
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -march=native -Wno-deprecated -std=c++11")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -march=native -Wno-deprecated -std=c++17")
     set (CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -fPIC -march=native -Wno-deprecated")
 
 # Mac OS X global build options
@@ -158,6 +161,7 @@ include_directories (${PROJECT_SOURCE_DIR}/externals/theoraplayer/externals/vorb
 include_directories (${PROJECT_SOURCE_DIR}/externals/theoraplayer/externals/vorbis/lib)
 include_directories (${PROJECT_SOURCE_DIR}/externals/theoraplayer/src/Theora)
 include_directories (${PROJECT_SOURCE_DIR}/externals/RtMidi)
+include_directories (${PROJECT_SOURCE_DIR}/externals/haply)
 
 # Static library source files
 file (GLOB_RECURSE source RELATIVE ${CHAI3D_SOURCE_DIR} ${CHAI3D_SOURCE_DIR}/src/*.cpp ${CHAI3D_SOURCE_DIR}/src/*.h)
@@ -204,6 +208,42 @@ endif ()
 # Static library
 add_library (chai3d STATIC ${source} ${source_eigen} ${source_gif} ${source_glew} ${source_3ds} ${source_jpeg} ${source_png} ${source_pugixml} ${source_openal} ${source_theora})
 
+# Link external libraries
+    # Set Haply lib paths
+if (${CMAKE_SYSTEM_NAME} MATCHES Windows)
+    if (MSVC)
+        if (${CMAKE_BUILD_TYPE} MATCHES Debug)
+            set (HAPLY_LIB_DIR ${PROJECT_SOURCE_DIR}/externals/haply/windows/Haply.HardwareAPId.lib)
+        else ()
+            set (HAPLY_LIB_DIR ${PROJECT_SOURCE_DIR}/externals/haply/windows/Haply.HardwareAPI.lib)
+        endif ()
+    elseif (MINGW)
+        if (${CMAKE_BUILD_TYPE} MATCHES Debug)
+            set (HAPLY_LIB_DIR ${PROJECT_SOURCE_DIR}/externals/haply/linux/libHaply.HardwareAPId.a)
+        else ()
+            set (HAPLY_LIB_DIR ${PROJECT_SOURCE_DIR}/externals/haply/linux/libHaply.HardwareAPI.a)
+        endif ()
+    endif ()
+elseif (${CMAKE_SYSTEM_NAME} MATCHES Linux)
+    if (${CMAKE_BUILD_TYPE} MATCHES Debug)
+        set (HAPLY_LIB_DIR ${PROJECT_SOURCE_DIR}/externals/haply/linux/libHaply.HardwareAPId.a)
+    else ()
+        set (HAPLY_LIB_DIR ${PROJECT_SOURCE_DIR}/externals/haply/linux/libHaply.HardwareAPI.a)
+    endif ()
+elseif (${CMAKE_SYSTEM_NAME} MATCHES Darwin)
+    if (${CMAKE_BUILD_TYPE} MATCHES Debug)
+        set (HAPLY_LIB_DIR ${PROJECT_SOURCE_DIR}/externals/haply/macos/libHaply.HardwareAPId.a)
+    else ()
+        set (HAPLY_LIB_DIR ${PROJECT_SOURCE_DIR}/externals/haply/macos/libHaply.HardwareAPI.a)
+    endif ()
+endif ()
+    # Link Haply libs
+if (${CMAKE_BUILD_TYPE} MATCHES Debug)
+    target_link_libraries(chai3d debug ${HAPLY_LIB_DIR})
+else ()
+    target_link_libraries(chai3d optimized ${HAPLY_LIB_DIR})
+endif ()
+
 # Library exports
 set (CHAI3D_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/src" "${PROJECT_SOURCE_DIR}/externals/Eigen" "${PROJECT_SOURCE_DIR}/externals/glew/include" "${OPENGL_INCLUDE_DIR}")
 set (CHAI3D_LIBRARIES chai3d ${OPENGL_LIBRARIES})
@@ -238,10 +278,17 @@ endif ()
 #
 ################################################################################
 
-# Examples
-if (EXISTS ${PROJECT_SOURCE_DIR}/examples)
-    add_subdirectory (${PROJECT_SOURCE_DIR}/examples)
-endif ()
+# Set building of examples to OFF by default
+if (NOT BUILD_EXAMPLES)
+    set (BUILD_EXAMPLES OFF CACHE STRING "Disabling building of examples." FORCE)
+endif()
+
+if (BUILD_EXAMPLES MATCHES ON)
+    # Examples
+    if (EXISTS ${PROJECT_SOURCE_DIR}/examples)
+        add_subdirectory (${PROJECT_SOURCE_DIR}/examples)
+    endif ()
+endif()
 
 # Utilities
 if (EXISTS ${PROJECT_SOURCE_DIR}/utils)

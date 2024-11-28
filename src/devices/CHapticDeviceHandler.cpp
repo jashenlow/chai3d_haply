@@ -68,6 +68,10 @@
 #include "devices/CSixenseDevices.h"
 #endif
 
+#if defined(C_ENABLE_HAPLY_DEVICE_SUPPORT)
+#include "devices/CHaplyDevices.h"
+#endif
+
 #if defined(C_ENABLE_CUSTOM_DEVICE_SUPPORT)
 #include "devices/CMyCustomDevice.h"
 #endif
@@ -216,6 +220,26 @@ void cHapticDeviceHandler::update()
     }
 
     #endif
+
+
+    //--------------------------------------------------------------------------
+    // search for Haply devices
+    //--------------------------------------------------------------------------
+    #if defined(C_ENABLE_HAPLY_DEVICE_SUPPORT)
+
+    // check for how many devices are available for this class of devices
+    count = cHaplyDevices::getNumDevices();
+
+    // open all remaining devices
+    for (int i = 0; i < count; i++)
+    {
+        device = cHaplyDevices::create(i);
+        m_devices[m_numDevices] = device;
+        m_numDevices++;
+    }
+
+    #endif
+
 
     //--------------------------------------------------------------------------
     // search for MyCustom device

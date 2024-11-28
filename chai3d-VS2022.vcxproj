@@ -156,7 +156,7 @@
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MP /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -196,8 +196,8 @@
     </ResourceCompile>
     <Lib>
       <AdditionalOptions>/NODEFAULTLIB:libmmd.lib  /ignore:4006,4221 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Haply.HardwareAPI.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>externals/haply/windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Lib>
@@ -286,8 +286,8 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Lib>
-      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Haply.HardwareAPId.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>externals/haply/windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/NODEFAULTLIB:libmmd.lib  /ignore:4006,4221 %(AdditionalOptions)</AdditionalOptions>
@@ -334,7 +334,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Chai3dUseExternalTheoraPlayer)' != 'true'">
     <ClCompile>
-      <AdditionalIncludeDirectories>externals/theoraplayer/include/theoraplayer;externals/theoraplayer/src/Theora;externals/theoraplayer/src/YUV/C;externals/theoraplayer/externals/ogg/include;externals/theoraplayer/externals/vorbis/include;externals/theoraplayer/externals/vorbis/lib;externals/theoraplayer/externals/theora/include;externals/theoraplayer/externals/theora/lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>externals/haply;externals/theoraplayer/include/theoraplayer;externals/theoraplayer/src/Theora;externals/theoraplayer/src/YUV/C;externals/theoraplayer/externals/ogg/include;externals/theoraplayer/externals/vorbis/include;externals/theoraplayer/externals/vorbis/lib;externals/theoraplayer/externals/theora/include;externals/theoraplayer/externals/theora/lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -426,6 +427,7 @@
     <ClCompile Include="src/world/CVoxelObject.cpp" />
     <ClCompile Include="src/world/CWorld.cpp" />
     <ClCompile Include="src/system/CGenericType.cpp" />
+    <ClCompile Include="src\devices\CHaplyDevices.cpp" />
     <ClCompile Include="src\display\CViewport.cpp" />
     <ClCompile Include="src\files\CFileAudioMP3.cpp" />
     <ClCompile Include="src\network\CSocket.cpp" />
@@ -695,6 +697,14 @@
     <ClInclude Include="externals/pugixml/include/pugiconfig.hpp" />
     <ClInclude Include="externals/pugixml/include/pugixml.hpp" />
     <ClInclude Include="externals/STB/include/stb_image.h" />
+    <ClInclude Include="externals\haply\Device.h" />
+    <ClInclude Include="externals\haply\DeviceDetection.h" />
+    <ClInclude Include="externals\haply\Handle.h" />
+    <ClInclude Include="externals\haply\HardwareAPI.h" />
+    <ClInclude Include="externals\haply\Inverse3.h" />
+    <ClInclude Include="externals\haply\SerialDeviceProvider.h" />
+    <ClInclude Include="externals\haply\SerialStream.h" />
+    <ClInclude Include="externals\haply\UUID.h" />
     <ClInclude Include="externals\RtMidi\RtMidi.h" />
     <ClInclude Include="src/audio/CAudioBuffer.h" />
     <ClInclude Include="src/audio/CAudioDevice.h" />
@@ -833,6 +843,7 @@
     <ClInclude Include="src/world/CShapeTorus.h" />
     <ClInclude Include="src/world/CVoxelObject.h" />
     <ClInclude Include="src/world/CWorld.h" />
+    <ClInclude Include="src\devices\CHaplyDevices.h" />
     <ClInclude Include="src\devices\CXTouchController.h" />
     <ClInclude Include="src\display\CViewport.h" />
     <ClInclude Include="src\files\CFileAudioMP3.h" />

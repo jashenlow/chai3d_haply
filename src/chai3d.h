@@ -78,6 +78,7 @@
 #include "devices/CPhantomDevices.h"
 #include "devices/CSixenseDevices.h"
 #include "devices/CXTouchController.h"
+#include "devices/CHaplyDevices.h"
 
 
 //---------------------------------------------------------------------------

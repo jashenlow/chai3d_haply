@@ -91,6 +91,9 @@
     <Filter Include="network">
       <UniqueIdentifier>{12507c1e-e5c6-4882-9c0e-b5ca86c7f434}</UniqueIdentifier>
     </Filter>
+    <Filter Include="externals\haply">
+      <UniqueIdentifier>{e87bb0f6-e3f9-493b-a3ed-d64aee4c8192}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src/collisions/CCollisionAABB.cpp">
@@ -1053,6 +1056,9 @@
     <ClCompile Include="src/devices/CXTouchController.cpp">
       <Filter>devices</Filter>
     </ClCompile>
+    <ClCompile Include="src\devices\CHaplyDevices.cpp">
+      <Filter>devices</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src/collisions/CCollisionAABB.h">
@@ -1520,6 +1526,33 @@
     </ClInclude>
     <ClInclude Include="src\display\CViewport.h">
       <Filter>display</Filter>
+    </ClInclude>
+    <ClInclude Include="src\devices\CHaplyDevices.h">
+      <Filter>devices</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\haply\Device.h">
+      <Filter>externals\haply</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\haply\DeviceDetection.h">
+      <Filter>externals\haply</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\haply\Handle.h">
+      <Filter>externals\haply</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\haply\HardwareAPI.h">
+      <Filter>externals\haply</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\haply\Inverse3.h">
+      <Filter>externals\haply</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\haply\SerialDeviceProvider.h">
+      <Filter>externals\haply</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\haply\SerialStream.h">
+      <Filter>externals\haply</Filter>
+    </ClInclude>
+    <ClInclude Include="externals\haply\UUID.h">
+      <Filter>externals\haply</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

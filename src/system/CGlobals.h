@@ -189,6 +189,7 @@
     #define C_ENABLE_PHANTOM_DEVICE_SUPPORT
     #define C_ENABLE_LEAP_DEVICE_SUPPORT
     // #define C_ENABLE_SIXENSE_DEVICE_SUPPORT
+    #define C_ENABLE_HAPLY_DEVICE_SUPPORT
 
     //--------------------------------------------------------------------
     // SYSTEM LIBRARIES
@@ -225,6 +226,7 @@
     #define C_ENABLE_PHANTOM_DEVICE_SUPPORT
     #define C_ENABLE_LEAP_DEVICE_SUPPORT
     // #define C_ENABLE_SIXENSE_DEVICE_SUPPORT
+    #define C_ENABLE_HAPLY_DEVICE_SUPPORT
 
 #endif
 
