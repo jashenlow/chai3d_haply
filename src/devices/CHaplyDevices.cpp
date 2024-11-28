@@ -334,8 +334,8 @@ namespace chai3d
 
         m_handle->SendDeviceWakeup();
         int ret = m_handle->Receive();
-
-        if (ret != 0) {
+        // return value of > 0 means successful.
+        if (ret <= 0) {
             m_handle.reset();
             m_handleStream.reset();
             return C_ERROR;
