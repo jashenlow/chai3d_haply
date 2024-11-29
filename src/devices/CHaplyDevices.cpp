@@ -605,14 +605,9 @@ namespace chai3d
         if (!m_deviceReady || !m_enable_forces)
             return (C_ERROR);
 
-        if (std::abs(a_force(0) - m_prevForce(0)) > HAPLY_FORCE_UPDATE_THRESHOLD ||
-            std::abs(a_force(1) - m_prevForce(1)) > HAPLY_FORCE_UPDATE_THRESHOLD ||
-            std::abs(a_force(2) - m_prevForce(2)) > HAPLY_FORCE_UPDATE_THRESHOLD) {
-            // retrieve force, torque, and gripper force components in individual variables
-            m_force.force[0] = (float)a_force(1);  // y
-            m_force.force[1] = -(float)a_force(0);  // x
-            m_force.force[2] = (float)a_force(2);  // z
-        }
+        m_force.force[0] = (float)a_force(1);  // y
+        m_force.force[1] = -(float)a_force(0);  // x
+        m_force.force[2] = (float)a_force(2);  // z
 
         // store new values.
         m_prevForce = a_force;
@@ -624,6 +619,11 @@ namespace chai3d
 
     bool cHaplyDevices::enableForces(bool a_value)
     {
+        if (!a_value) {
+            memset(m_force.force, 0, sizeof(float) * hAPI::VECTOR_SIZE);
+            m_prevForce.set(m_force.force[0], m_force.force[1], m_force.force[2]);
+        }
+
         m_enable_forces = a_value;
 
         return C_SUCCESS;

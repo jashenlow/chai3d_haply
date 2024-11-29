@@ -63,16 +63,10 @@ NOTE:
     before including this file.
   - Communication polling rate for the Inverse3 is up to 4kHz.
   - Communication polling rate for the handle should be about 50Hz to 60Hz.
-  - To modify the threshold for updating force values to the Inverse3,
-    simply define HAPLY_FORCE_UPDATE_THRESHOLD before including this file.
-    This helps to reduce unnecessary serial traffic being sent to the device.
 */
 #ifndef HAPLY_HANDLE_HZ
 #define HAPLY_HANDLE_HZ 50
 #endif // HAPLY_HANDLE_HZ
-#ifndef HAPLY_FORCE_UPDATE_THRESHOLD
-#define HAPLY_FORCE_UPDATE_THRESHOLD 0.0001  // [N]
-#endif // HAPLY_FORCE_UPDATE_THRESHOLD
 
 //------------------------------------------------------------------------------
 namespace chai3d
