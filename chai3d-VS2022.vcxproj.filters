@@ -1530,28 +1530,28 @@
     <ClInclude Include="src\devices\CHaplyDevices.h">
       <Filter>devices</Filter>
     </ClInclude>
-    <ClInclude Include="externals\haply\Device.h">
+    <ClInclude Include="externals\haply\include\Device.h">
       <Filter>externals\haply</Filter>
     </ClInclude>
-    <ClInclude Include="externals\haply\DeviceDetection.h">
+    <ClInclude Include="externals\haply\include\DeviceDetection.h">
       <Filter>externals\haply</Filter>
     </ClInclude>
-    <ClInclude Include="externals\haply\Handle.h">
+    <ClInclude Include="externals\haply\include\Handle.h">
       <Filter>externals\haply</Filter>
     </ClInclude>
-    <ClInclude Include="externals\haply\HardwareAPI.h">
+    <ClInclude Include="externals\haply\include\HardwareAPI.h">
       <Filter>externals\haply</Filter>
     </ClInclude>
-    <ClInclude Include="externals\haply\Inverse3.h">
+    <ClInclude Include="externals\haply\include\Inverse3.h">
       <Filter>externals\haply</Filter>
     </ClInclude>
-    <ClInclude Include="externals\haply\SerialDeviceProvider.h">
+    <ClInclude Include="externals\haply\include\SerialDeviceProvider.h">
       <Filter>externals\haply</Filter>
     </ClInclude>
-    <ClInclude Include="externals\haply\SerialStream.h">
+    <ClInclude Include="externals\haply\include\SerialStream.h">
       <Filter>externals\haply</Filter>
     </ClInclude>
-    <ClInclude Include="externals\haply\UUID.h">
+    <ClInclude Include="externals\haply\include\UUID.h">
       <Filter>externals\haply</Filter>
     </ClInclude>
   </ItemGroup>
