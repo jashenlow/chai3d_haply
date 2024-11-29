@@ -14,7 +14,7 @@ The following library versions are used in this repository:
     # OR
 
     # Configure building with examples (Default is OFF)
-    cmake -DBUILD_EXAMPLES -S . -B "build"
+    cmake -DBUILD_EXAMPLES=ON -S . -B "build"
     ```
 2. Build library  
     ```
