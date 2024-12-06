@@ -1,5 +1,6 @@
 [bB]uild/
 [bB]in/lin-x86_64
+[bB]in/**/*.exe
 *.vscode
 *.vs
 *.vcxproj.user
