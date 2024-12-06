@@ -45,6 +45,11 @@ foreach (example 01-mydevice 02-multi-devices 03-analytics 04-shapes 05-fonts 06
 
     file (GLOB source ${example}/*.cpp)
     add_executable (${example} ${source})
+    if (MSVC)
+      if (${CMAKE_BUILD_TYPE} MATCHES Release)
+        target_link_options (${example} PRIVATE "/LTCG")
+      endif ()
+    endif ()
     target_link_libraries (${example} ${CHAI3D_LIBRARIES} ${GLFW_LIBRARIES})
   
     # OS specific adjustments
